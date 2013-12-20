@@ -97,7 +97,13 @@ extern int sys_sleep(void);
 extern int sys_unlink(void);
 extern int sys_wait(void);
 extern int sys_write(void);
+extern int sys_writeaudio(void);
 extern int sys_uptime(void);
+extern int sys_ideread(void);
+extern int sys_setSampleRate(void);
+extern int sys_setVolume(void);
+extern int sys_pause(void);
+extern int sys_mp3decode(void);
 
 static int (*syscalls[])(void) = {
 [SYS_chdir]   sys_chdir,
@@ -120,7 +126,13 @@ static int (*syscalls[])(void) = {
 [SYS_unlink]  sys_unlink,
 [SYS_wait]    sys_wait,
 [SYS_write]   sys_write,
+[SYS_writeaudio] sys_writeaudio,
 [SYS_uptime]  sys_uptime,
+[SYS_ideread]     sys_ideread,
+[SYS_setSampleRate] sys_setSampleRate,
+[SYS_setVolume] sys_setVolume,
+[SYS_pause] sys_pause,
+[SYS_mp3decode] sys_mp3decode,
 };
 
 void

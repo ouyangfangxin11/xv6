@@ -48,6 +48,7 @@ mainc(void)
   fileinit();      // file table
   iinit();         // inode cache
   ideinit();       // disk
+  soundinit();     // audio
   if(!ismp)
     timerinit();   // uniprocessor timer
   userinit();      // first user process

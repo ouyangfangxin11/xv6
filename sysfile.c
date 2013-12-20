@@ -295,6 +295,7 @@ sys_open(void)
 int
 sys_mkdir(void)
 {
+  cprintf("\nmkdirplay\n");
   char *path;
   struct inode *ip;
 

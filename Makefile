@@ -1,4 +1,5 @@
 OBJS = \
+  audio.o\
 	bio.o\
 	console.o\
 	exec.o\
@@ -11,12 +12,14 @@ OBJS = \
 	lapic.o\
 	main.o\
 	mp.o\
+	pci.o\
 	picirq.o\
 	pipe.o\
 	proc.o\
 	spinlock.o\
 	string.o\
 	swtch.o\
+	sysaudio.o\
 	syscall.o\
 	sysfile.o\
 	sysproc.o\
@@ -28,7 +31,7 @@ OBJS = \
 	vm.o\
 
 # Cross-compiling (e.g., on Mac OS X)
-#TOOLPREFIX = i386-jos-elf-
+#TOOLPREFIX = i386-elf-
 
 # Using native tools (e.g., on X86 Linux)
 #TOOLPREFIX = 
@@ -50,7 +53,7 @@ TOOLPREFIX := $(shell if i386-jos-elf-objdump -i 2>&1 | grep '^elf32-i386$$' >/d
 endif
 
 # If the makefile can't find QEMU, specify its path here
-#QEMU = 
+#QEMU = /usr/local/bin/qemu-system-i386
 
 # Try to infer the correct QEMU
 ifndef QEMU
@@ -66,7 +69,7 @@ QEMU = $(shell if which qemu > /dev/null; \
 	echo "***" 1>&2; exit 1)
 endif
 
-CC = $(TOOLPREFIX)gcc
+CC = $(TOOLPREFIX)gcc-4.4
 AS = $(TOOLPREFIX)gas
 LD = $(TOOLPREFIX)ld
 OBJCOPY = $(TOOLPREFIX)objcopy
@@ -78,7 +81,7 @@ ASFLAGS = -m32 -gdwarf-2
 LDFLAGS += -m $(shell $(LD) -V | grep elf_i386 2>/dev/null)
 
 xv6.img: bootblock kernel fs.img
-	dd if=/dev/zero of=xv6.img count=10000
+	dd if=/dev/zero of=xv6.img count=120000
 	dd if=bootblock of=xv6.img conv=notrunc
 	dd if=kernel of=xv6.img seek=1 conv=notrunc
 
@@ -138,16 +141,20 @@ UPROGS=\
 	_kill\
 	_ln\
 	_ls\
+	_pause\
+	_decode\
 	_mkdir\
+	_play\
 	_rm\
 	_sh\
 	_stressfs\
 	_usertests\
+	_wavmake\
 	_wc\
 	_zombie\
 
 fs.img: mkfs README $(UPROGS)
-	./mkfs fs.img README $(UPROGS)
+	./mkfs fs.img README $(UPROGS) wav1.wav back.wav
 
 -include *.d
 

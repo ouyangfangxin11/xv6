@@ -5,6 +5,7 @@ int fork(void);
 int exit(void) __attribute__((noreturn));
 int wait(void);
 int pipe(int*);
+int writeaudio(void*, int);
 int write(int, void*, int);
 int read(int, void*, int);
 int close(int);
@@ -22,6 +23,10 @@ int getpid();
 char* sbrk(int);
 int sleep(int);
 int uptime();
+int ideread(void*, int, int, int, int);
+int setSampleRate(int);
+int pause();
+int mp3decode();
 
 // ulib.c
 int stat(char*, struct stat*);

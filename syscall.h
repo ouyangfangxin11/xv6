@@ -20,3 +20,9 @@
 #define SYS_sbrk   19
 #define SYS_sleep  20
 #define SYS_uptime 21
+#define SYS_setSampleRate 22
+#define SYS_writeaudio 23
+#define SYS_ideread 24
+#define SYS_setVolume 25
+#define SYS_pause 26
+#define SYS_mp3decode 27
